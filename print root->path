@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+using namespace std;
+
+
+
+bool getpath(TreeNode<int>* root, vector<int>& ans, int x) {
+
+    // this is for leaf node
+    if (root == nullptr)
+        return false;
+
+    ans.push_back(root->data); // store current node in path
+
+    if (root->data == x)
+        return true;
+
+    if (getpath(root->left, ans, x) || getpath(root->right, ans, x))
+        return true;
+        
+
+    ans.pop_back(); // backtrack if not found in either subtree
+    return false;
+}
+
+vector<int> pathInATree(TreeNode<int>* root, int x) {
+    vector<int> ans;
+    // this is for empty tree
+    if (root == nullptr)
+        return ans;
+
+    getpath(root, ans, x);
+    return ans;
+}
